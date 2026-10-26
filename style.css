@@ -33,5 +33,8 @@ summary { cursor: pointer; }
 #growth-progress { display: block; width: 100%; height: 16px; margin: 12px 0; accent-color: #28624d; }
 #growth-note, .exp-rule { font-size: 12px; line-height: 1.8; color: #62716b; margin: 10px 0 0; }
 .slider-scale { color: #62716b; font-size: 12px; margin: -4px 0 10px; }
+.time-card input { margin: 10px 0 0; }
+#time-result { color: #28624d; background: #edf5ef; padding: 16px; border-radius: 10px; font-size: 20px; font-weight: 700; line-height: 1.7; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+#time-help { color: #62716b; font-size: 12px; line-height: 1.8; margin-bottom: 0; }
 details p { margin-bottom: 0; }
 @media (max-width: 480px) { body { padding: 20px 14px; } .calculator { padding: 26px 22px; } }

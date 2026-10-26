@@ -48,6 +48,13 @@
       <p id="growth-note">進度以 Lv.1 為起點，按已完成升級數計算。</p>
       <p class="exp-rule">Lv.n → Lv.(n+1)：(2n − 1) × 100,000 EXP<br>總經驗為目前等級至目標等級的逐級需求加總。</p>
     </section>
+    <section class="growth-card time-card" aria-labelledby="time-title">
+      <h2 id="time-title">⏱️ 升級時間預測</h2>
+      <label for="exp-rate">每秒獲得 EXP</label>
+      <input id="exp-rate" type="number" min="0" step="any" inputmode="decimal" placeholder="例如：1000" aria-describedby="time-help">
+      <p id="time-result" role="status" aria-atomic="true">請輸入每秒 EXP</p>
+      <p id="time-help">預估時間 = 所需總經驗 ÷ 每秒 EXP，無條件進位至整秒。假設速度固定，從目前等級起點開始計算。</p>
+    </section>
     <details>
       <summary>身高如何計算？</summary>
       <p>目前身高 = 初始身高 × (1 + 0.1 × (等級 − 1))</p>

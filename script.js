@@ -13,6 +13,34 @@ const STORAGE_KEY = "codextest.petHeightCalculator.v1";
 const targetInput = document.getElementById("target-level");
 const targetSlider = document.getElementById("target-slider");
 const targetDisplay = document.getElementById("target-display");
+const expRateInput = document.getElementById("exp-rate");
+const timeResult = document.getElementById("time-result");
+
+function updateTime(exp, validLevels) {
+  const rate = Number(expRateInput.value);
+  if (expRateInput.value.trim() === "") {
+    timeResult.textContent = "請輸入每秒 EXP";
+    return;
+  }
+  if (!Number.isFinite(rate) || rate <= 0) {
+    timeResult.textContent = "請輸入大於 0 的每秒 EXP";
+    return;
+  }
+  if (!validLevels) {
+    timeResult.textContent = "請輸入 1～100 的整數目前等級與目標等級。";
+    return;
+  }
+  const seconds = Math.ceil(exp / rate);
+  if (!Number.isSafeInteger(seconds)) {
+    timeResult.textContent = "預估時間過長，請提高每秒 EXP 後再試。";
+    return;
+  }
+  const days = Math.floor(seconds / 86400);
+  const hours = Math.floor(seconds % 86400 / 3600);
+  const minutes = Math.floor(seconds % 3600 / 60);
+  const remainingSeconds = seconds % 60;
+  timeResult.textContent = `${days.toLocaleString("zh-TW")} 天 ${hours} 時 ${minutes} 分 ${remainingSeconds} 秒${exp === 0 ? "（已達目標）" : ""}`;
+}
 
 function validLevel(value) {
   return value !== "" && Number.isInteger(Number(value)) && Number(value) >= 1 && Number(value) <= 100;
@@ -40,6 +68,7 @@ function updateGrowth() {
   document.getElementById("growth-levels").textContent = valid ? `${Math.max(0, target - current)} 級` : "—";
   // 前 k 個奇數的和為 k²，因此可直接計算逐級經驗的總和。
   const exp = valid ? Math.max(0, (target - 1) ** 2 - (current - 1) ** 2) * 100000 : 0;
+  updateTime(exp, valid);
   document.getElementById("growth-exp").textContent = valid ? `${exp.toLocaleString("zh-TW")} EXP` : "—";
   const percent = valid ? (current >= target ? 100 : (current - 1) / (target - 1) * 100) : 0;
   const progress = document.getElementById("growth-progress");
@@ -57,6 +86,7 @@ function saveData() {
       initialHeight: heightInput.value,
       level: levelInput.value,
       targetLevel: targetInput.value,
+      expRate: expRateInput.value,
     }));
     storageStatus.textContent = "已自動儲存於此瀏覽器本機。";
   } catch {
@@ -73,6 +103,9 @@ function restoreData() {
       throw new Error("Invalid saved data");
     }
     const level = Number(data.level);
+    if (typeof data.expRate === "string" && Number.isFinite(Number(data.expRate)) && Number(data.expRate) > 0) {
+      expRateInput.value = data.expRate;
+    }
     if (typeof data.targetLevel === "string" && validLevel(data.targetLevel)) {
       targetInput.value = String(Number(data.targetLevel));
     }
@@ -159,6 +192,10 @@ targetInput.addEventListener("input", () => {
   calculateHeight();
   saveData();
 });
+expRateInput.addEventListener("input", () => {
+  calculateHeight();
+  saveData();
+});
 targetSlider.addEventListener("input", () => {
   targetInput.value = targetSlider.value;
   syncTarget();
@@ -167,7 +204,7 @@ targetSlider.addEventListener("input", () => {
 });
 
 resetButton.addEventListener("click", () => {
-  if (!window.confirm("確定要清除已儲存的資料嗎？初始身高將清空，目前等級將恢復為 Lv.1，目標等級將恢復為 Lv.100。")) return;
+  if (!window.confirm("確定要清除已儲存的資料嗎？初始身高與每秒 EXP 將清空，目前等級將恢復為 Lv.1，目標等級將恢復為 Lv.100。")) return;
   try {
     // 只刪除此計算器的資料，不影響同來源的其他資料。
     localStorage.removeItem(STORAGE_KEY);
@@ -176,6 +213,7 @@ resetButton.addEventListener("click", () => {
     storageStatus.textContent = "畫面已重設，但瀏覽器無法清除儲存資料。";
   }
   form.reset();
+  expRateInput.value = "";
   syncLevel(1);
   syncTarget();
   calculateHeight();
