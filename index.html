@@ -21,6 +21,11 @@
       <label class="slider-label" for="level-slider">拖動調整等級 <output id="level-display" for="level level-slider">Lv.1</output></label>
       <input id="level-slider" name="level-slider" type="range" min="1" max="100" step="1" value="1" aria-valuetext="Lv.1">
       <div class="slider-scale" aria-hidden="true"><span>Lv.1</span><span>Lv.100</span></div>
+      <label for="target-level">目標等級</label>
+      <input id="target-level" name="target-level" type="number" min="1" max="100" step="1" value="100" required>
+      <label class="slider-label" for="target-slider">拖動調整目標 <output id="target-display" for="target-level target-slider">Lv.100</output></label>
+      <input id="target-slider" type="range" min="1" max="100" step="1" value="100" aria-valuetext="Lv.100">
+      <div class="slider-scale" aria-hidden="true"><span>Lv.1</span><span>Lv.100</span></div>
       <button type="submit">計算目前身高</button>
       <button id="reset-data" class="secondary-button" type="button">重設資料</button>
       <p id="storage-status" role="status">資料僅儲存在此瀏覽器本機。</p>
@@ -29,6 +34,19 @@
       <h2>目前身高</h2>
       <p id="result-value">等待輸入</p>
       <p id="result-detail">輸入初始身高後，即可隨等級變化即時計算。</p>
+    </section>
+    <section class="growth-card" aria-labelledby="growth-title">
+      <h2 id="growth-title">🐘 寵物成長分析</h2>
+      <dl class="growth-stats" aria-live="polite" aria-atomic="true">
+        <div><dt>目前身高</dt><dd id="growth-current">—</dd></div>
+        <div><dt>目標身高</dt><dd id="growth-target">—</dd></div>
+        <div><dt>還需升級</dt><dd id="growth-levels">—</dd></div>
+        <div><dt>所需總經驗</dt><dd id="growth-exp">—</dd></div>
+      </dl>
+      <label for="growth-progress">目標等級進度 <span id="growth-percent">0%</span></label>
+      <progress id="growth-progress" max="100" value="0">0%</progress>
+      <p id="growth-note">進度以 Lv.1 為起點，按已完成升級數計算。</p>
+      <p class="exp-rule">Lv.n → Lv.(n+1)：(2n − 1) × 100,000 EXP<br>總經驗為目前等級至目標等級的逐級需求加總。</p>
     </section>
     <details>
       <summary>身高如何計算？</summary>
