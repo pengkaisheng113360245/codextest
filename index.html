@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>寵物身高計算器</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="calculator">
+    <div class="pet-icon" aria-hidden="true">🐾</div>
+    <p class="eyebrow">陪伴每一步成長</p>
+    <h1>寵物身高計算器</h1>
+    <p class="intro">輸入初始身高與目前等級，看看寵物長多高了！</p>
+    <form id="height-form">
+      <label for="initial-height">初始身高 · 公尺（m）</label>
+      <input id="initial-height" name="initial-height" type="number" min="0" step="any" placeholder="例如：20" required>
+      <label for="level">目前等級</label>
+      <input id="level" name="level" type="number" min="1" max="100" step="1" value="1" required>
+      <label class="slider-label" for="level-slider">拖動調整等級 <output id="level-display" for="level level-slider">Lv.1</output></label>
+      <input id="level-slider" name="level-slider" type="range" min="1" max="100" step="1" value="1" aria-valuetext="Lv.1">
+      <div class="slider-scale" aria-hidden="true"><span>Lv.1</span><span>Lv.100</span></div>
+      <button type="submit">計算目前身高</button>
+      <button id="reset-data" class="secondary-button" type="button">重設資料</button>
+      <p id="storage-status" role="status">資料僅儲存在此瀏覽器本機。</p>
+    </form>
+    <section class="result" aria-live="polite" aria-atomic="true">
+      <h2>目前身高</h2>
+      <p id="result-value">等待輸入</p>
+      <p id="result-detail">輸入初始身高後，即可隨等級變化即時計算。</p>
+    </section>
+    <details>
+      <summary>身高如何計算？</summary>
+      <p>目前身高 = 初始身高 × (1 + 0.1 × (等級 − 1))</p>
+      <p>等級 1 時維持初始身高，每增加 1 級，增加初始身高的 10%。結果顯示至小數點後 2 位。</p>
+    </details>
+  </main>
+</body>
+</html>

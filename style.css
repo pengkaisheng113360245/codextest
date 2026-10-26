@@ -1,0 +1,29 @@
+:root { font-family: "Microsoft JhengHei", system-ui, sans-serif; color: #253c36; background: #f1f6f2; }
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; padding: 40px 20px; display: grid; place-items: center; }
+.calculator { width: 100%; max-width: 490px; background: #fff; border: 1px solid #dde8e0; border-radius: 24px; padding: 36px; box-shadow: 0 16px 48px #253c360d; }
+.pet-icon { font-size: 36px; }
+.eyebrow { color: #547568; font-size: 13px; letter-spacing: 2px; margin: 16px 0 8px; }
+h1 { font-size: clamp(24px, 6vw, 30px); margin: 0 0 12px; }
+.intro, details { color: #62716b; font-size: 14px; line-height: 1.8; }
+form { margin-top: 26px; display: grid; gap: 10px; }
+label { font-weight: 600; font-size: 14px; }
+input { width: 100%; border: 1px solid #cbd8d0; border-radius: 10px; padding: 13px 14px; font: inherit; margin-bottom: 10px; background: #fcfdfc; }
+input:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px solid #a1cfb8; outline-offset: 3px; }
+button { border: 0; border-radius: 10px; background: #28624d; color: white; padding: 15px; font: inherit; font-weight: 700; cursor: pointer; }
+button:hover { background: #1e4d3c; }
+.secondary-button { background: #edf5ef; color: #28624d; border: 1px solid #cbd8d0; }
+.secondary-button:hover { background: #dcece1; }
+#storage-status { margin: 0; color: #62716b; font-size: 12px; line-height: 1.7; }
+.result { margin: 26px 0 20px; padding: 22px; border-radius: 14px; background: #edf5ef; text-align: center; overflow-wrap: anywhere; }
+.result h2 { font-size: 14px; font-weight: 500; margin: 0; }
+#result-value { font-size: 30px; font-weight: 700; margin: 10px 0; color: #28624d; font-variant-numeric: tabular-nums; }
+#result-detail { font-size: 13px; margin: 0; color: #62716b; line-height: 1.7; }
+summary { cursor: pointer; }
+.slider-label, .slider-scale { display: flex; justify-content: space-between; align-items: center; }
+.slider-label { font-size: 13px; color: #547568; }
+#level-display { color: #28624d; font-weight: 700; }
+#level-slider { padding: 0; margin: 0; border: 0; height: 24px; accent-color: #28624d; cursor: pointer; }
+.slider-scale { color: #62716b; font-size: 12px; margin: -4px 0 10px; }
+details p { margin-bottom: 0; }
+@media (max-width: 480px) { body { padding: 20px 14px; } .calculator { padding: 26px 22px; } }
